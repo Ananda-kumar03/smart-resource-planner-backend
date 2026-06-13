@@ -177,7 +177,10 @@ from functools import wraps
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins=[
+    "http://localhost:5173", 
+    "https://smart-resource-planner-frontend.vercel.app"
+])
 
 # MongoDB Connection
 MONGO_URI = os.getenv("MONGO_URI")
@@ -185,7 +188,7 @@ MONGO_URI = os.getenv("MONGO_URI")
 if not MONGO_URI:
     # If running locally, print a reminder to set up your environment variables
     print("⚠️ WARNING: MONGO_URI environmental variable not found!")
-    
+
 client = MongoClient(MONGO_URI)
 db = client["resource_planner_db"]
 
